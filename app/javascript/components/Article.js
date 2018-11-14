@@ -1,6 +1,5 @@
 import React from "react"
 import PropTypes from "prop-types"
-
 import Timestamp from "react-timestamp"
 
 class Article extends React.Component {
@@ -12,17 +11,29 @@ class Article extends React.Component {
         </div>
         <div className="article-body">
           {this.props.description}
-          <div class="article-meta-details">
+          <div className="article-meta-details">
             <small>
               Created by: {this.props.author},
               &nbsp;
-              <Timestamp time={this.props.created_at} presicion={3} />,
-              last updated: <Timestamp time={this.props.updated_at} presicion={3} />
+              <Timestamp time={this.props.created_at} precision={4} />,
+              last updated: <Timestamp time={this.props.updated_at} precision={4} />
             </small>  
           </div>
         </div>
       </React.Fragment>
     );
+  }
+
+  componentDidMount() {
+    var self = this;
+    setInterval(function() { self.forceUpdate() }, 1000);
+  }
+
+  componentWillUnmount() {
+      if (this_timer) {
+        clearInterval(this._timer);
+        this._timer = null;
+      }
   }
 }
 
